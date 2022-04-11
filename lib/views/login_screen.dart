@@ -1,4 +1,6 @@
 import 'package:bluestacks_assignment_parikshit/helpers/assets.dart';
+import 'package:bluestacks_assignment_parikshit/subviews/cdivider.dart';
+import 'package:bluestacks_assignment_parikshit/subviews/textfielder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bluestacks_assignment_parikshit/cubits/login/login_cubit.dart';
@@ -13,7 +15,10 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final screenCubit = LoginCubit();
-
+  final TextEditingController email = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final FocusNode emailF = FocusNode();
+  final FocusNode passwordF = FocusNode();
   @override
   void initState() {
     screenCubit.loadInitialData();
@@ -40,8 +45,25 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget buildBody(LoginState state) {
-    return ListView(
-      children: [Image.asset(Assets.game_tv_logo2)],
+    return Column(
+      children: [
+        Image.asset(Assets.game_tv_logo2),
+        const Cdivider(),
+        TextFielder(
+          action: TextInputAction.next,
+          type: TextInputType.emailAddress,
+          controller: email,
+          focusNode: emailF,
+          nextNode: passwordF,
+        ),
+        TextFielder(
+          action: TextInputAction.done,
+          type: TextInputType.visiblePassword,
+          controller: email,
+          focusNode: emailF,
+          nextNode: null,
+        ),
+      ],
     );
   }
 }
