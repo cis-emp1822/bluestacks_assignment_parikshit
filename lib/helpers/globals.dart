@@ -10,3 +10,8 @@ class Globals {
     Locale('sk', 'SK'),
   ];
 }
+
+class Gcolors {
+  static const backgroundColor = Color(0xff768bad);
+  static const greyColor = Color(0xffDCDCDC);
+}

@@ -1,3 +1,4 @@
+import 'package:bluestacks_assignment_parikshit/helpers/globals.dart';
 import 'package:bluestacks_assignment_parikshit/services/persist.dart';
 import 'package:bluestacks_assignment_parikshit/views/home_screen.dart';
 import 'package:bluestacks_assignment_parikshit/views/login_screen.dart';
@@ -21,6 +22,7 @@ class SplashPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return CupertinoApp(
+              debugShowCheckedModeBanner: false,
               home: Scaffold(
                   body: Center(
                 child: Column(
@@ -34,22 +36,58 @@ class SplashPage extends StatelessWidget {
             return Provider(
                 create: (_) => Persist(db: snapshot.data),
                 child: MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  theme: ThemeData(
-                    primarySwatch: Colors.blue,
-                  ),
-                  builder: (context, child) {
-                    if (snapshot.data!.hasData('is_login')) {
-                      return const HomeScreen();
-                    } else {
-                      return const LoginScreen();
-                    }
-                  },
-                ));
+                    debugShowCheckedModeBanner: false,
+                    theme: ThemeData(
+                        colorScheme: const ColorScheme(
+                            brightness: Brightness.light,
+                            secondary: Gcolors.greyColor,
+                            onSecondary: Gcolors.greyColor,
+                            primary: Colors.white,
+                            onPrimary: Gcolors.backgroundColor,
+                            error: Colors.deepOrange,
+                            onError: Colors.deepOrange,
+                            background: Gcolors.backgroundColor,
+                            onBackground: Gcolors.backgroundColor,
+                            surface: Gcolors.greyColor,
+                            onSurface: Gcolors.greyColor)),
+                    routes: {
+                      HomeScreen.routeName: (context) => const HomeScreen(),
+                      LoginScreen.routeName: (context) => const LoginScreen(),
+                    },
+                    home: const SplashChild()));
           }
           return Container(
             color: Colors.black,
           );
         });
+  }
+}
+
+class SplashChild extends StatefulWidget {
+  const SplashChild({Key? key, this.data = false}) : super(key: key);
+  final bool data;
+  @override
+  State<SplashChild> createState() => _SplashChildState();
+}
+
+class _SplashChildState extends State<SplashChild> {
+  @override
+  void initState() {
+    loadData();
+    super.initState();
+  }
+
+  loadData() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    if (widget.data) {
+      Navigator.pushNamed(context, HomeScreen.routeName);
+    } else {
+      Navigator.pushNamed(context, LoginScreen.routeName);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }

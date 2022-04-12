@@ -1,11 +1,12 @@
 import 'package:bluestacks_assignment_parikshit/cubits/home/home_cubit.dart';
 import 'package:bluestacks_assignment_parikshit/cubits/home/home_state.dart';
+import 'package:bluestacks_assignment_parikshit/helpers/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
+  static const routeName = '/HomeScreen';
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -39,10 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildBody(HomeState state) {
-    return ListView(
-      children: [
-        // TODO your code here
-      ],
+    return Column(
+      children: [Image.asset(Assets.game_tv_logo2)],
     );
   }
 }

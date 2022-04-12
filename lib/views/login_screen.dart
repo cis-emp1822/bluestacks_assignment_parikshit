@@ -1,5 +1,7 @@
 import 'package:bluestacks_assignment_parikshit/helpers/assets.dart';
-import 'package:bluestacks_assignment_parikshit/subviews/cdivider.dart';
+import 'package:bluestacks_assignment_parikshit/helpers/globals.dart';
+import 'package:bluestacks_assignment_parikshit/subviews/buttonsub.dart';
+import 'package:bluestacks_assignment_parikshit/subviews/logo_widget.dart';
 import 'package:bluestacks_assignment_parikshit/subviews/textfielder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +10,7 @@ import 'package:bluestacks_assignment_parikshit/cubits/login/login_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
+  static const routeName = '/LoginScreen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -28,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Gcolors.backgroundColor,
       body: BlocConsumer<LoginCubit, LoginState>(
         bloc: screenCubit,
         listener: (BuildContext context, LoginState state) {
@@ -46,23 +49,31 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget buildBody(LoginState state) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(Assets.game_tv_logo2),
-        const Cdivider(),
+        const LogoWidget(),
         TextFielder(
           action: TextInputAction.next,
           type: TextInputType.emailAddress,
           controller: email,
           focusNode: emailF,
           nextNode: passwordF,
+          label: 'Email Address',
         ),
         TextFielder(
           action: TextInputAction.done,
           type: TextInputType.visiblePassword,
-          controller: email,
-          focusNode: emailF,
+          controller: password,
+          focusNode: passwordF,
           nextNode: null,
+          label: 'Password',
         ),
+        ButtonSub(
+          label: 'Login',
+          onGo: () {
+            FocusScope.of(context).unfocus();
+          },
+        )
       ],
     );
   }
